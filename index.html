@@ -61,7 +61,7 @@
   .home-clock .d{font-size:15px;opacity:.85;margin-top:2px;}
   .icon-grid{
     flex:1;display:grid;grid-template-columns:repeat(4,1fr);
-    gap:22px 10px;padding:0 24px;align-content:space-evenly;
+    gap:22px 10px;padding:0 24px;align-content:start;
   }
   .app{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;user-select:none;}
   .app-icon{
@@ -311,10 +311,6 @@ const homeApps = [
   ["☁️","天気","linear-gradient(135deg,#4facfe,#00c6fb)"],["🎵","ミュージック","linear-gradient(135deg,#fc5c7d,#6a82fb)"],
   ["✉️","メール","linear-gradient(135deg,#5aa8f5,#2f6fed)",3],["🧮","計算機","#2c2c2e"],
   ["🛍️","ストア","#3478f6"],["⚙️","設定","#8e8e93"],
-  ["📖","ブック","linear-gradient(135deg,#f6d365,#ee7b7b)"],["🎮","ゲーム","linear-gradient(135deg,#667eea,#764ba2)"],
-  ["📈","株価","#1c1c1e"],["🧭","コンパス","linear-gradient(135deg,#f7971e,#ffd200)"],
-  ["🏠","ホーム","linear-gradient(135deg,#43e97b,#38f9d7)"],["📁","ファイル","linear-gradient(135deg,#89f7fe,#66a6ff)"],
-  ["🎙️","ボイスメモ","#4a4a4c"],["🏋️","フィットネス","#0a0a0a"],
 ];
 homeApps.forEach(([emoji,name,bg,badge])=>{
   const d = document.createElement("div");
