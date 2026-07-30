@@ -27,8 +27,10 @@
   .bars div{flex:1;border-radius:2px;background:rgba(255,255,255,.35);overflow:hidden;}
   .bars i{display:block;height:100%;width:0;background:#fff;}
   .head{display:flex;align-items:center;gap:9px;padding:11px 2px 0;font-size:13px;}
-  .ava{width:32px;height:32px;border-radius:50%;
+  .ava{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
     background:conic-gradient(from 200deg,#f9ce34,#ee2a7b,#6228d7,#f9ce34);}
+  .ava i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+    font-style:normal;font-size:12px;font-weight:700;letter-spacing:.02em;}
   .head b{font-weight:600;}
   .head span{color:rgba(255,255,255,.55);}
 
@@ -51,7 +53,7 @@
 
   <div class="top">
     <div class="bars" id="bars"></div>
-    <div class="head"><div class="ava"></div><b>my_story</b><span>3時間前</span></div>
+    <div class="head"><div class="ava"><i id="ava"></i></div><b id="who"></b><span id="when"></span></div>
   </div>
 
   <div class="bottom">
@@ -66,16 +68,23 @@
 </div>
 
 <script>
-// ▼ 差し替えるのはここだけ。この HTML と同じ場所に置いた動画のファイル名。
-const VIDEOS = ['1.mp4', '2.mp4', '3.mp4'];
+// ▼ 差し替えるのはここだけ。動画のファイル名と、投稿者の設定。
+const VIDEOS = [
+  { src:'1.mp4', user:'ryo_tnk',      time:'2時間前', color:'#2f6fed' },
+  { src:'2.mp4', user:'miyu.0410',    time:'5時間前', color:'#d94a7a' },
+  { src:'3.mp4', user:'k_nakagawa88', time:'昨日',   color:'#2f9e6b' },
+];
 
 const track = document.getElementById('track');
 const bars  = document.getElementById('bars');
+const who   = document.getElementById('who');
+const when  = document.getElementById('when');
+const ava   = document.getElementById('ava');
 let i = 0;
 
-VIDEOS.forEach((src, n) => {
+VIDEOS.forEach((item, n) => {
   const v = document.createElement('video');
-  v.src = src; v.muted = true; v.playsInline = true; v.preload = 'auto';  // 音を出すなら muted を false に
+  v.src = item.src; v.muted = true; v.playsInline = true; v.preload = 'auto';  // 音を出すなら muted を false に
   v.ontimeupdate = () => { if (n === i && v.duration) bar(n, v.currentTime / v.duration); };
   v.onended = () => { if (n === i) go(i + 1); };
   track.append(v);
@@ -94,6 +103,13 @@ function go(n){
   const v = track.children[i];
   v.currentTime = 0;
   v.play().catch(() => {});
+
+  // 投稿者を切り替える
+  const u = VIDEOS[i];
+  who.textContent  = u.user;
+  when.textContent = u.time;
+  ava.textContent  = u.user[0].toUpperCase();
+  ava.style.background = u.color;
 }
 
 // 横スワイプ
